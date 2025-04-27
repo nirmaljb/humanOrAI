@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsc -b && node dist/index.js",
     "build": "esbuild index=./src --bundle --minify --outdir=dist --packages=external --platform=node",
-		"start": "node dist"
+    "start": "node dist"
   },
   "keywords": [],
   "author": "",
@@ -15,8 +15,12 @@
   "dependencies": {
     "@google/genai": "^0.10.0",
     "@types/express": "^5.0.1",
+    "@types/node": "^22.15.2",
     "express": "^4.21.2",
     "socket.io": "^4.8.1",
     "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.3"
   }
 }
