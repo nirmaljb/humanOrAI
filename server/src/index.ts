@@ -12,8 +12,8 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server, {
     cors: {
-        // origin: 'https://human-or-ai-roan.vercel.app'
-        origin: 'http://localhost:5173'
+        origin: 'https://human-or-ai-roan.vercel.app'
+        // origin: 'http://localhost:5173'
     }
 });
 
