@@ -133,14 +133,14 @@ io.on('connection', (socket) => {
 async function matchMaking() {
 
     //if there are no exisiting players, then we stall the user in the queue (remove this later)
-    if (waitingUsers.length === 0) return;
+    if (waitingUsers.length < 2) return;
 
     const player1 = waitingUsers.shift();
     
     await new Promise(resolve => setTimeout(resolve, 8000));
     
-    const isAI = Math.random() > 0.5 || waitingUsers.length === 0;
-    // const isAI = true;
+    // const isAI = Math.random() > 0.5 || waitingUsers.length === 0;
+    const isAI = true;
     
     const game_room_id = `game-${v4()}`;
 
