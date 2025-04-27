@@ -7,7 +7,7 @@ const World = loadable(() => import("@/components/ui/globe").then((m) => m.World
   ssr: false,
 });
 
-export default function Queue({ username, cancelQueue }: { username: string, cancelQueue: () => void }) {
+export default function Queue({ cancelQueue }: { cancelQueue: () => void }) {
   const globeConfig = {
     pointSize: 5,
     globeColor: "#062056",

@@ -120,7 +120,7 @@ function App() {
       //   <h1 className="text-2xl">{username} is in queue...</h1>
       //   <Button className="text-[#03ff03]" onClick={disconnectQueue}>Cancel</Button>
       // </div>
-      <Queue username={username} cancelQueue={disconnectQueue}/>
+      <Queue cancelQueue={disconnectQueue}/>
     )
   }
 

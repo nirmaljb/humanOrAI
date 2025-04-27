@@ -77,6 +77,7 @@ export const Messages = ({ messages, loading }: { messages: Message[], loading?:
                 custom={i}
                 initial="initial"
                 animate="animate"
+                // @ts-ignore
                 variants={dotAnimationVariants}
                 className="h-2 w-2 bg-white rounded-full mx-1"
               />

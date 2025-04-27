@@ -1,16 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { Messages } from "@/components/Messages";
-import { Socket } from "socket.io-client";
 import DecisionPanel from "@/components/DecisionPanel";
 import Timer from "@/components/Timer";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import GameResult from "@/components/GameResult";
-import { GameState, Message } from "@/utils/interface";
+import { GameState } from "@/utils/interface";
 import { FaArrowUp } from "react-icons/fa";
 import OpponentDisconnectedPanel from "@/components/OpponentDisconnectPanel";
 
-export default function Chat({ socket, gameState, joinQueue }: { socket: Socket<DefaultEventsMap, DefaultEventsMap> | null, gameState: GameState, joinQueue: () => void }) {
+export default function Chat({ socket, gameState, joinQueue }: { socket: any | null, gameState: GameState, joinQueue: () => void }) {
     const [chat, setChat] = useState('');
     const [messages, setMessages] = useState<any>([]);
     // const [isDisabled, setIsDisabled] = useState(false);
