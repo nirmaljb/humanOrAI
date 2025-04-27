@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client';
 
-const URL = 'humanorai-production.up.railway.app';
+const URL = 'https://humanorai-production.up.railway.app/';
 
 const socket = io(URL, {
     autoConnect: false,
