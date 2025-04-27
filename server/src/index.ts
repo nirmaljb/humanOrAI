@@ -137,7 +137,7 @@ async function matchMaking() {
 
     const player1 = waitingUsers.shift();
     
-    await new Promise(resolve => setTimeout(resolve, 8000));
+    await new Promise(resolve => setTimeout(resolve, 12000));
     
     // const isAI = Math.random() > 0.5 || waitingUsers.length === 0;
     const isAI = false;
