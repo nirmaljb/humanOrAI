@@ -122,27 +122,24 @@ export default function Chat({ socket, gameState, joinQueue }: { socket: any | n
     }, []);
 
     return (
-        <div className="flex flex-col h-full min-h-screen w-full max-w-md mx-auto relative bg-background md:h-screen md:min-h-0 md:border md:rounded-lg md:shadow-lg overflow-hidden">
-            {/* Header with Timer */}
-            <div className="sticky top-0 z-10 w-full p-3 bg-background border-b shadow-sm">
+        <div className="flex flex-col h-screen w-full max-w-md md:max-w-96 mx-auto relative md:border md:rounded-sm overflow-hidden">
+            <div className="sticky top-0 z-10 w-full p-2 border-b">
                 <Timer startTimer={gameState.gameStartData?.startTime || 0} duration={gameState.gameStartData?.duration || 0}/>
             </div>
             
-            {/* Messages Container */}
             <div className="flex-1 overflow-y-auto p-4 pb-20">
                 <Messages messages={messages} loading={isOpponentTyping} />
                 <div ref={messagesEndRef} />
             </div>
             
-            {/* Message Input Area */}
-            <form onSubmit={submitHandler} className="fixed bottom-0 left-0 right-0 p-3 bg-background border-t max-w-md mx-auto">
+            <form onSubmit={submitHandler} className="text-white fixed bottom-0 left-0 right-0 p-4 max-w-md md:max-w-96 mx-auto bg-background">
                 <div className="flex items-center gap-2">
                     <div className="relative flex-1">
                         <Input
                             value={chat} 
                             onChange={e => setChat(e.target.value)} 
                             placeholder="Type your message..."
-                            className="p-4 pr-12 rounded-full border-accent bg-accent-foreground text-sm"
+                            className="p-5 pr-12 border-none drop-shadow-2xl bg-accent-foreground text-sm truncate"
                             disabled={timeUp}
                             onKeyDown={handleKeyPress}
                         />
@@ -150,15 +147,13 @@ export default function Chat({ socket, gameState, joinQueue }: { socket: any | n
                             type="submit" 
                             size="icon" 
                             disabled={chat.trim().length === 0}
-                            className="absolute right-1 top-1/2 transform -translate-y-1/2 h-10 w-10 rounded-full flex items-center justify-center bg-primary hover:bg-primary/90"
+                            className="absolute right-1 top-1/2 transform -translate-y-1/2 h-9 w-9 cursor-pointer"
                         >
-                            <FaArrowUp className="text-primary-foreground" />
+                            <FaArrowUp className="text-[#03ff03]"/>
                         </Button>
                     </div>
                 </div>
             </form>
-
-            {/* Modals and Overlays */}
             <DecisionPanel isOpen={timeUp} onDecide={makeDecision} />
             {gameState.gameResult && <GameResult isOpen={isResultAvailable} gameState={gameState} joinQueue={joinQueue}/> }
             <OpponentDisconnectedPanel isOpen={isOpponentDisconnected} gameState={gameState} joinQueue={joinQueue} />
