@@ -140,7 +140,7 @@ async function matchMaking() {
     await new Promise(resolve => setTimeout(resolve, 8000));
     
     // const isAI = Math.random() > 0.5 || waitingUsers.length === 0;
-    const isAI = true;
+    const isAI = false;
     
     const game_room_id = `game-${v4()}`;
 
