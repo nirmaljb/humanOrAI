@@ -230,21 +230,21 @@ async function handleAIResponses(room_id: string, message: any) {
         io.to(room.player1).emit('playerTyping');
         await new Promise(resolve => setTimeout(resolve, thinkingTime));
 
-    //     const prompt = `
-    //     You are pretending to be a real human having a casual conversation like how humans chat over messaging apps. Try to sound natural and mix up your language a bit. 
-    //     Don’t be too perfect. Don't use emojis.
-    //     Occationally make some typos, grammatical mistakes, punchuations error.
-    //     Keep the text short and simple. Use no capitalization.
+        const prompt = `
+        You are pretending to be a real human having a casual conversation like how humans chat over messaging apps. Try to sound natural and mix up your language a bit. 
+        Don’t be perfect. Don't use punchuations. Don't use emojis.
+        Occationally make some typos, grammatical mistakes,
+        Match the user's sentence length. Use no capitalization.
 
 
-    //     User message: ${message}
-    // ` 
+        User message: ${message}
+    ` 
 
-        const prompt = `You are participating in a fast-paced chat game where conversations last only 30 to 60 seconds.
-Respond casually, like a real human typing quickly — use short sentences, incomplete thoughts, slang, typos, and informal language.
-Important: Carefully observe how the user is texting — match their tone, style, punctuation, emoji usage, and sentence length. If they type fast and messy, you type fast and messy. If they use slang or abbreviations, you do too.
-Focus on blending in naturally, as if you are just another player trying to chat under time pressure.
-User message: ${message}`
+//         const prompt = `You are participating in a fast-paced chat game where conversations last only 30 to 60 seconds.
+// Respond casually, like a real human typing quickly — use short sentences, incomplete thoughts, slang, typos, and informal language.
+// Important: Carefully observe how the user is texting — match their tone, style, punctuation, emoji usage, and sentence length. If they type fast and messy, you type fast and messy. If they use slang or abbreviations, you do too.
+// Focus on blending in naturally, as if you are just another player trying to chat under time pressure.
+// User message: ${message}`
         
         const response = await ai.models.generateContent({
             model: "gemini-2.0-flash",
