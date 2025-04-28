@@ -119,6 +119,7 @@ export default function Chat({ socket, gameState, joinQueue }: { socket: any | n
 
     return (
         <div className="flex flex-col h-screen max-w-md md:max-w-96 md:rounded-md mx-auto relative md:border rounded-sm overflow-hidden">
+            <meta name="apple-mobile-web-app-capable" content="yes" />    
             {/* Timer header with fixed position */}
             <div className="sticky top-0 z-20 w-full p-2 border-b">
                 <Timer startTimer={gameState.gameStartData?.startTime || 0} duration={gameState.gameStartData?.duration || 0}/>
