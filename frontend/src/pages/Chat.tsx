@@ -28,7 +28,7 @@ export default function Chat({ socket, gameState, joinQueue }: { socket: any | n
 
     useEffect(() => {
         socket?.on('opponentDisconnected', () => {
-            console.log("opponent has Disconnected");
+            // console.log("opponent has Disconnected");
             if(typingTimeOutRef.current) {
                 clearTimeout(typingTimeOutRef.current);
             }
@@ -36,12 +36,12 @@ export default function Chat({ socket, gameState, joinQueue }: { socket: any | n
         });
 
         socket?.on('playerTyping', () => {
-            console.log('opponent is typing');
+            // console.log('opponent is typing');
             setIsOpponentTyping(true);
         });
 
         socket?.on('playerNotTyping', () => {
-            console.log('opponent is not typing');
+            // console.log('opponent is not typing');
             setIsOpponentTyping(false);
         });
 
@@ -50,7 +50,7 @@ export default function Chat({ socket, gameState, joinQueue }: { socket: any | n
         })
 
         socket?.on('receiveMessage', (data: any) => {
-            console.log(data);
+            // console.log(data);
             setIsOpponentTyping(false);
             // setIsDisabled(false);
             setMessages((prev: any) => [...prev, {

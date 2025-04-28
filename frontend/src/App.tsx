@@ -31,13 +31,13 @@ function App() {
   useEffect(() => {
 
     socketServer.on('connect', () => {
-      console.log(`User ${socketServer.id} is connected`);
+      // console.log(`User ${socketServer.id} is connected`);
       setSocket(socketServer);
       setIsConnected(true);
     });
     
     socketServer.on('disconnect', () => {
-      console.log(`User ${socketServer.id} is disconnected`);
+      // console.log(`User ${socketServer.id} is disconnected`);
       setSocket(null);
       setIsConnected(false);
     });
@@ -49,12 +49,12 @@ function App() {
 
   useEffect(() => {
     socket?.on('queueStatus', (data) => {
-        console.log(`Queue status: ${data}`);
+        // console.log(`Queue status: ${data}`);
         setInQueue(true);
     });
 
     socket?.on('gameStart', (data) => {
-        console.log(`Game started: ${data}`);
+        // console.log(`Game started: ${data}`);
         setInQueue(false);
         setGameState({
             username: data.username,
@@ -93,7 +93,7 @@ function App() {
     }
   }, [socket])
 
-  console.log(gameState);
+  // console.log(gameState);
 
   const joinQueue = () => {
 
