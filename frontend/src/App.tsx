@@ -144,6 +144,8 @@ function App() {
 
 
   return (
+    <>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <div className="container max-w-md grid place-content-center h-dvh m-auto">
       <div className="text-center w-full">
         <div className="space-y-5 mb-8 px-5">
@@ -158,6 +160,7 @@ function App() {
         </div>
       </div>
   </div>
+    </>
   )
 }
 export default App;
