@@ -7,7 +7,7 @@ dotenv.config();
 
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
+const ai = new GoogleGenAI({ apiKey: "AIzaSyBfMphMKuNEjp9VL-wR0mPu-C_JqH7xdZc" });
 
 const app = express();
 const server = createServer(app);
