@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from 'react-router'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
+    {/* <meta name="mobile-web-app-capable" content="yes" /> */}
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />

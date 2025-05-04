@@ -1,5 +1,4 @@
 import { motion } from "motion/react";
-// import dynamic from "next/dynamic";
 import loadable from "@loadable/component"
 import { Button } from "@/components/ui/button";
 

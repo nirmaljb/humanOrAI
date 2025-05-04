@@ -6,8 +6,25 @@ import { GameState } from "./utils/interface";
 import { Input } from "./components/ui/input";
 import { Button } from "./components/ui/button";
 import Queue from "./pages/Queue";
+// import { TypewriterEffect } from "./components/ui/typewriter-effect";
 
 function App() {
+
+  const words = [
+    {
+      text: "human",
+    },
+    {
+      text: "or",
+    },
+    {
+      text: "not",
+    },
+  ];
+
+  const previous_wins = localStorage.getItem('wins');
+
+
   const [username, setUsername] = useState<string>('');
   const [socket, setSocket] = useState<Socket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
@@ -21,6 +38,7 @@ function App() {
       gameResult: null,
       opponent: null
   });
+
   useEffect(() => {
     socketServer.disconnect();
     return () => {
@@ -31,13 +49,11 @@ function App() {
   useEffect(() => {
 
     socketServer.on('connect', () => {
-      // console.log(`User ${socketServer.id} is connected`);
       setSocket(socketServer);
       setIsConnected(true);
     });
     
     socketServer.on('disconnect', () => {
-      // console.log(`User ${socketServer.id} is disconnected`);
       setSocket(null);
       setIsConnected(false);
     });
@@ -49,12 +65,13 @@ function App() {
 
   useEffect(() => {
     socket?.on('queueStatus', (data) => {
-        // console.log(`Queue status: ${data}`);
         setInQueue(true);
+        console.log(data);
+        // setGameState(null);
     });
 
     socket?.on('gameStart', (data) => {
-        // console.log(`Game started: ${data}`);
+        console.log("game started")
         setInQueue(false);
         setGameState({
             username: data.username,
@@ -69,9 +86,13 @@ function App() {
             showDecision: false,
             gameResult: null
         });
+        console.log(gameState);
     });
 
     socket?.on('gameResult', (data) => {
+      if(data.isCorrect && previous_wins) {
+        localStorage.setItem('wins', (parseInt(previous_wins) + 1).toString());
+      }
       setGameState((prev) => ({
         ...prev,
         // gameActive: false,
@@ -89,51 +110,43 @@ function App() {
     return () => {
       socket?.off("queueStatus");
       socket?.off("gameStart");
+      socket?.off("gameResult");
       socket?.off("opponentDisconnected");
+      socket?.off('timeUp');
     }
   }, [socket])
 
-  // console.log(gameState);
 
   const joinQueue = () => {
-
-    if(socket?.connected) {
-      socket?.disconnect();
-      gameState.gameActive = false;
-    }
-
     if(username.trim().length === 0) return;
+    
+    setGameState({
+        username: null,
+        room_id: null,
+        showDecision: false,
+        gameActive: false,
+        gameStartData: null,
+        gameResult: null,
+        opponent: null
+    });
+    
+    console.log(gameState);
     socketServer.connect();
-        
-    socketServer.emit('joinQueue', { username: username })
+
+    socketServer.emit('joinQueue', { username: username });
     setInQueue(true);
   };
 
   const disconnectQueue = () => {
     setInQueue(false);
-    socket?.disconnect()
+    socket?.disconnect();
   }
 
   if(isConnected && inQueue) {
     return (
-      // <div className="container grid place-content-center h-dvh max-w-md text-center m-auto space-y-4 px-5">
-      //   <h1 className="text-2xl">{username} is in queue...</h1>
-      //   <Button className="text-[#03ff03]" onClick={disconnectQueue}>Cancel</Button>
-      // </div>
-      <Queue cancelQueue={disconnectQueue}/>
+      <Queue cancelQueue={disconnectQueue} />
     )
   }
-
-  // if(gameState.gameResult) {
-  //   return (
-  //     <>
-  //       {/* <h1>{gameState.gameResult?.isCorrect ? 'Correct': 'InCorrect'}</h1>
-  //       <h1>Opponent was {gameState.opponent}</h1>
-  //       <button onClick={joinQueue}>Play another game!</button> */}
-
-  //     </>
-  //   )
-  // }
 
   if(gameState.gameActive) {
     return (
@@ -145,14 +158,13 @@ function App() {
 
   return (
     <>
-    <meta name="apple-mobile-web-app-capable" content="yes" />
     <div className="container max-w-md grid place-content-center h-dvh m-auto">
       <div className="text-center w-full">
-        <div className="space-y-5 mb-8 px-5">
-          <h1 className="text-5xl press-start-2p-regular max-w-64 m-auto">human or not?</h1>
+        <div className="space-y-5 mb-8 px-5 max-w-64 md:max-w-md">
+          <h1 className="text-5xl press-start-2p-regular max-w-80 mx-auto">human or not?</h1>
+          {/* <TypewriterEffect className="text-[#03ff03] text-5xl press-start-2p-regular max-w-64 m-auto" words={words} /> */}
           <p className="mt-7 text-white bg-black">A Social Turing Game.</p>
           <p className="text-sm md:mx-16">Chat with someone for 1 minute, then guess if they're human or AI.</p>
-          {/* <p className="text-sm font-semibold">Can you tell the difference?</p> */}
         </div>
         <div className="flex-row max-w-64 m-auto mt-5 space-y-4">
           <Input className="py-5 text-sm" type="text" placeholder="Username..." onChange={e => setUsername(e.target.value)} value={username} />

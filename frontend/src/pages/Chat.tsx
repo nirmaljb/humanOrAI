@@ -28,20 +28,18 @@ export default function Chat({ socket, gameState, joinQueue }: { socket: any | n
 
     useEffect(() => {
         socket?.on('opponentDisconnected', () => {
-            // console.log("opponent has Disconnected");
             if(typingTimeOutRef.current) {
                 clearTimeout(typingTimeOutRef.current);
             }
+
             setIsOpponentDisconnected(true);
         });
 
         socket?.on('playerTyping', () => {
-            // console.log('opponent is typing');
             setIsOpponentTyping(true);
         });
 
         socket?.on('playerNotTyping', () => {
-            // console.log('opponent is not typing');
             setIsOpponentTyping(false);
         });
 
@@ -50,9 +48,7 @@ export default function Chat({ socket, gameState, joinQueue }: { socket: any | n
         })
 
         socket?.on('receiveMessage', (data: any) => {
-            // console.log(data);
             setIsOpponentTyping(false);
-            // setIsDisabled(false);
             setMessages((prev: any) => [...prev, {
                     id: data.id,
                     message: data.message,
@@ -119,19 +115,16 @@ export default function Chat({ socket, gameState, joinQueue }: { socket: any | n
 
     return (
         <div className="flex flex-col h-screen max-w-md md:max-w-96 md:rounded-md mx-auto relative md:border rounded-sm overflow-hidden">
-            <meta name="apple-mobile-web-app-capable" content="yes" />    
-            {/* Timer header with fixed position */}
+            {/* <meta name="apple-mobile-web-app-capable" content="yes" />     */}
             <div className="sticky top-0 z-20 w-full p-2 border-b">
                 <Timer startTimer={gameState.gameStartData?.startTime || 0} duration={gameState.gameStartData?.duration || 0}/>
             </div>
             
-            {/* Message container with padding at bottom to ensure space for input */}
             <div className="flex-1 overflow-y-auto p-4 pb-20">
                 <Messages messages={messages} loading={isOpponentTyping} />
                 <div ref={messagesEndRef} />
             </div>
             
-            {/* Input form with transparent background and bottom positioning */}
             <form onSubmit={submitHandler} className="text-white fixed bottom-0 left-0 right-0 p-4 max-w-md md:max-w-96 mx-auto">
                 <div className="flex items-center gap-2">
                     <div className="relative flex-1">
