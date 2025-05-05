@@ -13,6 +13,7 @@ import { RxCross2 } from "react-icons/rx";
 
 export default function GameResult({ isOpen, gameState, joinQueue }: { isOpen: boolean, gameState: GameState, joinQueue: () => void }) {
     const wins = localStorage.getItem('wins');
+    console.log(wins);
     return (
         <AlertDialog open={isOpen}>
         <AlertDialogContent className="flex flex-col justify-center items-center text-center bg-white text-black md:max-w-80">

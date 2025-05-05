@@ -23,6 +23,9 @@ function App() {
   ];
 
   const previous_wins = localStorage.getItem('wins');
+  if(previous_wins === null) {
+    localStorage.setItem('wins', (0).toString());
+  }
 
 
   const [username, setUsername] = useState<string>('');
