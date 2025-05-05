@@ -9,7 +9,7 @@ import { GameState } from "@/utils/interface";
 import { FaArrowUp } from "react-icons/fa";
 import OpponentDisconnectedPanel from "@/components/OpponentDisconnectPanel";
 
-export default function Chat({ socket, gameState, joinQueue }: { socket: any | null, gameState: GameState, joinQueue: () => void }) {
+export default function Chat({ socket, gameState, joinQueue, exitGame }: { socket: any | null, gameState: GameState, joinQueue: () => void, exitGame: () => void }) {
     const [chat, setChat] = useState('');
     const [messages, setMessages] = useState<any>([]);
     // const [isDisabled, setIsDisabled] = useState(false);
@@ -117,7 +117,7 @@ export default function Chat({ socket, gameState, joinQueue }: { socket: any | n
         <div className="flex flex-col h-screen max-w-md md:max-w-96 md:rounded-md mx-auto relative md:border rounded-sm overflow-hidden">
             {/* <meta name="apple-mobile-web-app-capable" content="yes" />     */}
             <div className="sticky top-0 z-20 w-full p-2 border-b">
-                <Timer startTimer={gameState.gameStartData?.startTime || 0} duration={gameState.gameStartData?.duration || 0}/>
+                <Timer startTimer={gameState.gameStartData?.startTime || 0} duration={gameState.gameStartData?.duration || 0} exitGame={exitGame}/>
             </div>
             
             <div className="flex-1 overflow-y-auto p-4 pb-20">

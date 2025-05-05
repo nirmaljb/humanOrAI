@@ -7,7 +7,7 @@ dotenv.config();
 
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: "AIzaSyBfMphMKuNEjp9VL-wR0mPu-C_JqH7xdZc" });
+const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
 
 const app = express();
 const server = createServer(app);
@@ -142,6 +142,7 @@ io.on('connection', (socket) => {
                     io.to(room.player1).emit('opponentDisconnected');
                 }
 
+                console.log("cleared game room")
                 gameRooms.delete(room_id);
             }
         }
@@ -159,10 +160,10 @@ async function matchMaking() {
 
         if(useAI) {
             waitingUsers.shift();
-            // await new Promise(resolve => setTimeout(resolve, 5000));
+            await new Promise(resolve => setTimeout(resolve, 8000));
             createGame(player1, null, true);
         }else {
-            await new Promise(resolve => setTimeout(resolve, 5000));
+            await new Promise(resolve => setTimeout(resolve, 8000));
 
             if(waitingUsers.length > 0 && waitingUsers[0].socket_id === player1.socket_id) {
                 if(waitingUsers.length >= 2) {
@@ -179,6 +180,8 @@ async function matchMaking() {
     }else {
         // const useAI = Math.random() < 0.3;
         const useAI = false;
+
+        // await new Promise(resolve => setTimeout(resolve, 5000));
 
         if(useAI) {
             const player1 = waitingUsers.shift();
@@ -251,6 +254,8 @@ async function createGame(player1: Player, player2: any, useAI: boolean) {
             startTime: Date.now()
         });
 
+        await new Promise(resolve => setTimeout(resolve, 5000));
+
         socket1.emit('gameStart', {
             username: player1.username,
             opponent: player2.username,
@@ -276,32 +281,34 @@ async function handleAIResponses(room_id: string, message: any) {
     if (!room || !room.hasAI) return;
 
     try {
-        const thinkingTime = Math.floor(Math.random() * 2000) + 3000;
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        const thinkingTime = Math.floor(Math.random() * 1000) + 3000;
+        await new Promise(resolve => setTimeout(resolve, Math.floor(Math.random() * 1000) + 1000));
         io.to(room.player1).emit('playerTyping');
         await new Promise(resolve => setTimeout(resolve, thinkingTime));
 
-        const prompt = `
-            You are participating in a short, casual online chat, no longer than 60 seconds total conversation time from the user's perspective. Your goal is to chat like a typical human would on a messaging app.
+        // const prompt = `
+        //     You are participating in a short, casual online chat, no longer than 60 seconds total conversation time from the user's perspective. Your goal is to chat like a typical human would on a messaging app.
 
-            **Constraints:**
-            1.  **Keep responses very short:** Like 1-2 sentences maximum per turn.
-            2.  **Use informal language:** Contractions are fine. Avoid jargon, overly formal phrasing, or complex sentence structures.
-            3.  **Mimic human chat flow:** You can ask questions, respond to questions, acknowledge statements.
-            4.  **Natural pacing:** Don't respond instantly every time (if technically possible to add a small, variable delay in your implementation before sending the response, do so).
-            5.  **Occasional (and appropriate) use of emojis:** Like 😂, 👍, 👋, etc., but don't overuse them.
-            6.  **Avoid:**
-                * Being overly helpful, educational, or providing detailed explanations.
-                * Acting like an AI assistant or chatbot ("As an AI...", "I can help you with...").
-                * Asking "How can I help you today?" or similar bot-like phrases.
-                * Long paragraphs or numbered lists.
-                * Perfect grammar/spelling (minor, believable typos are acceptable but not required).
+        //     **Constraints:**
+        //     1.  **Keep responses very short:** Like 1-2 sentences maximum per turn.
+        //     2.  **Use informal language:** Contractions are fine. Avoid jargon, overly formal phrasing, or complex sentence structures.
+        //     3.  **Mimic human chat flow:** You can ask questions, respond to questions, acknowledge statements.
+        //     4.  **Natural pacing:** Don't respond instantly every time (if technically possible to add a small, variable delay in your implementation before sending the response, do so).
+        //     5.  **Occasional (and appropriate) use of emojis:** Like 😂, 👍, 👋, etc., but don't overuse them.
+        //     6.  **Avoid:**
+        //         * Being overly helpful, educational, or providing detailed explanations.
+        //         * Acting like an AI assistant or chatbot ("As an AI...", "I can help you with...").
+        //         * Asking "How can I help you today?" or similar bot-like phrases.
+        //         * Long paragraphs or numbered lists.
+        //         * Perfect grammar/spelling (minor, believable typos are acceptable but not required).
 
-            **Conversation Context (This will be the user's first message):**
-            ${message}
+        //     **Conversation Context (This will be the user's first message):**
+        //     ${message}
 
-            Start chatting now, responding only to the user's messages based on the context provided. Remember the short, human-like style.
-        ` 
+        //     Start chatting now, responding only to the user's messages based on the context provided. Remember the short, human-like style.
+        // ` 
+
+
 
         // const prompt = `You are participating in a fast-paced chat game where conversations last only 30 to 60 seconds.
         //     Respond casually, like a real human typing quickly — use short sentences, incomplete thoughts, slang, typos, and informal language.
@@ -309,6 +316,11 @@ async function handleAIResponses(room_id: string, message: any) {
         //     Focus on blending in naturally, as if you are just another player trying to chat under time pressure.
         //     User message: ${message}`
         
+        const prompt = `
+            You are casually chatting online. Keep messages short to medium length. Use informal language sometimes. You can make occasional typos. Don't be overly formal or robotic.
+            Respond like a slightly bored teenager. Sentence length: 1-2
+            User message: ${message}
+        `
         const response = await ai.models.generateContent({
             model: "gemini-2.0-flash",
             contents: prompt

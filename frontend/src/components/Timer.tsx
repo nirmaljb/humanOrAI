@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
+import { IoMdExit } from "react-icons/io";
 
-export default function Timer({ startTimer, duration }: { startTimer: number, duration: number }) {
+
+export default function Timer({ startTimer, duration, exitGame }: { startTimer: number, duration: number, exitGame: () => void }) {
     const [timeRemaining, setTimeRemaining] = useState(duration);
 
     useEffect(() => {
@@ -21,8 +23,11 @@ export default function Timer({ startTimer, duration }: { startTimer: number, du
 
 
     return (
-        <div className="flex justify-evenly p-5">
-            <h1 className="text-sm text-[#03ff03] press-start-2p-regular">human or not? <span className="text-white font-normal">{timeRemaining}s</span></h1>
+        <div className="flex items-center justify-between p-3 sm:p-5">
+            <div>
+                <h1 className="text-sm text-[#03ff03] press-start-2p-regular">human or not? <span className="text-white font-normal">{timeRemaining}s</span></h1>
+            </div>
+            <IoMdExit size={30} className="text-red-500 cursor-pointer" onClick={exitGame}/>
         </div>
     )
 }

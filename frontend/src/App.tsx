@@ -142,6 +142,19 @@ function App() {
     socket?.disconnect();
   }
 
+  const exitGame = () => {
+    socket?.disconnect();
+    setGameState({
+        username: null,
+        room_id: null,
+        showDecision: false,
+        gameActive: false,
+        gameStartData: null,
+        gameResult: null,
+        opponent: null
+    });
+  }
+
   if(isConnected && inQueue) {
     return (
       <Queue cancelQueue={disconnectQueue} />
@@ -150,7 +163,7 @@ function App() {
 
   if(gameState.gameActive) {
     return (
-        <Chat socket={socket} gameState={gameState} joinQueue={joinQueue}/>
+        <Chat socket={socket} gameState={gameState} joinQueue={joinQueue} exitGame={exitGame}/>
     )
   }
 
