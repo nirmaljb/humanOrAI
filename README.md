@@ -1,4 +1,4 @@
-# Human or AI 🤖👤
+# Human or AI 🤖👤 (backend is down)
 
 A real-time chat application that challenges users to distinguish between human and AI participants in anonymous 1-minute conversations.
 
