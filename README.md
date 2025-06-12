@@ -20,7 +20,7 @@ Human or AI is an interactive chat platform where users enter rooms and engage i
 
 ### Frontend
 - **React.js** - Modern UI library for building interactive interfaces
-- **TypeScript** - Type-safe JavaScript for better development experience
+- **TypeScript** - Type-safe JavaScript for a better development experience
 - **Tailwind CSS** - Utility-first CSS framework for rapid styling
 - **Shadcn/ui** - High-quality, accessible React components
 - **Aceternity UI** - Beautiful, animated UI components
@@ -29,6 +29,8 @@ Human or AI is an interactive chat platform where users enter rooms and engage i
 - **Node.js** - JavaScript runtime for server-side development
 - **TypeScript** - Type-safe backend development
 - **Socket.io** - Real-time bidirectional event-based communication
+- **Prisma** - Object relational mapper
+- **Postgres** - SQL database
 
 ### AI Integration
 - **Gemini AI** - Advanced AI model for generating human-like responses
@@ -102,29 +104,6 @@ Human or AI is an interactive chat platform where users enter rooms and engage i
 4. **See Results**: Find out if you were correct and view your accuracy score
 5. **Play Again**: Jump into another room to test your skills further
 
-## 🏗️ Project Structure
-
-```
-human-or-ai/
-├── client/                 # React frontend
-│   ├── src/
-│   │   ├── components/     # Reusable UI components
-│   │   ├── pages/         # Main application pages
-│   │   ├── hooks/         # Custom React hooks
-│   │   ├── utils/         # Utility functions
-│   │   └── types/         # TypeScript type definitions
-│   └── public/            # Static assets
-├── server/                # Node.js backend
-│   ├── src/
-│   │   ├── controllers/   # Request handlers
-│   │   ├── services/      # Business logic
-│   │   ├── utils/         # Helper functions
-│   │   ├── types/         # TypeScript interfaces
-│   │   └── socket/        # Socket.io event handlers
-│   └── dist/              # Compiled JavaScript
-└── shared/                # Shared types and utilities
-```
-
 ## 🔧 Available Scripts
 
 ### Frontend
@@ -163,49 +142,5 @@ The application uses Gemini AI to power intelligent responses. The AI is designe
 - **Secure Connections**: All communications are encrypted
 - **Rate Limiting**: Protection against spam and abuse
 
-## 🚀 Deployment
-
-### Frontend (Vercel/Netlify)
-```bash
-npm run build
-# Deploy the build folder to your preferred hosting service
-```
-
-### Backend (Railway/Render/Heroku)
-```bash
-npm run build
-# Set environment variables in your hosting platform
-# Deploy the compiled application
-```
-
-## 🤝 Contributing
-
-We welcome contributions! Please follow these steps:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- Gemini AI for providing advanced language model capabilities
-- The open-source community for the amazing tools and libraries
-- All contributors and testers who help improve the application
-
-## 📞 Support
-
-If you encounter any issues or have questions:
-
+## If you encounter any issues or have questions:
 - Open an issue on GitHub
-- Check the documentation
-- Join our community discussions
-
----
-
-**Ready to test your human detection skills?** Start chatting and see if you can tell the difference! 🎮
