@@ -29,8 +29,6 @@ Human or AI is an interactive chat platform where users enter rooms and engage i
 - **Node.js** - JavaScript runtime for server-side development
 - **TypeScript** - Type-safe backend development
 - **Socket.io** - Real-time bidirectional event-based communication
-- **Prisma** - Object relational mapper
-- **Postgres** - SQL database
 
 ### AI Integration
 - **Gemini AI** - Advanced AI model for generating human-like responses
