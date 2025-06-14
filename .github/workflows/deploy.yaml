@@ -42,7 +42,7 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           password: ${{ secrets.EC2_KEY }}
           port: 22
-          script:
+          script: |
               docker pull ${{ secrets.DOCKER_USERNAME }}/human-or-ai
               docker stop ${{ secrets.DOCKER_USERNAME }}/human-or-ai || true
               docker rm ${{ secrets.DOCKER_USERNAME }}/human-or-ai || true
