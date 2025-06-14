@@ -36,15 +36,19 @@ jobs:
           chmod 600 key.pem
         
       - name: Deploy to EC2
-        run: |
-          ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
-            docker pull ${{ secrets.DOCKER_USERNAME }}/human-or-ai
-            docker stop ${{ secrets.DOCKER_USERNAME }}/human-or-ai || true
-            docker rm ${{ secrets.DOCKER_USERNAME }}/human-or-ai || true
-            docker run -d --name ${{ secrets.DOCKER_USERNAME }}/human-or-ai -p 80:8000 \
-              -e API_KEY=${{secrets.GOOGLE_API_KEY}} \
-              ${{ secrets.DOCKER_USERNAME }}/human-or-ai
-          EOF
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          password: ${{ secrets.EC2_KEY }}
+          port: 22
+          script:
+              docker pull ${{ secrets.DOCKER_USERNAME }}/human-or-ai
+              docker stop ${{ secrets.DOCKER_USERNAME }}/human-or-ai || true
+              docker rm ${{ secrets.DOCKER_USERNAME }}/human-or-ai || true
+              docker run -d --name ${{ secrets.DOCKER_USERNAME }}/human-or-ai -p 80:8000 \
+                -e API_KEY=${{secrets.GOOGLE_API_KEY}} \
+                ${{ secrets.DOCKER_USERNAME }}/human-or-ai
 
 
 
