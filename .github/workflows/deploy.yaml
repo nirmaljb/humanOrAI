@@ -21,7 +21,7 @@ jobs:
 
 
       - name: Build the docker image
-        run: docker build --platform=linux/amd64 -t ${{secrets.DOCKER_USERNAME}}/human-or-ai
+        run: docker build --platform=linux/amd64 -t ${{secrets.DOCKER_USERNAME}}/human-or-ai .
 
       - name: Push the docker image
         run: docker push ${{secrets.DOCKER_USERNAME}}/human-or-ai
